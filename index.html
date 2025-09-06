@@ -96,6 +96,7 @@
     .card button.primary {
       background: linear-gradient(90deg, #00c6ff, #0072ff);
       color: #fff;
+      font-weight: bold;
     }
     .card button.secondary {
       background: #ff9800;
@@ -123,56 +124,37 @@
     .section { display: none; }
     .section.active { display: block; }
 
-    /* Gift catalog */
-    .gift-catalog {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .gift-catalog:hover { transform: scale(1.02); }
-
-    /* === Modal Popup === */
+    /* === Modal Fullscreen Lightbox === */
     .modal {
       display: none;
       position: fixed;
       z-index: 2000;
       left: 0; top: 0;
       width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(0,0,0,0.9);
       justify-content: center;
       align-items: center;
     }
-    .modal-content {
-      background: #fff;
-      color: #222;
-      padding: 20px;
+    .modal img {
+      max-width: 95%;
+      max-height: 90vh;
       border-radius: 12px;
-      max-width: 600px;
-      text-align: center;
-      position: relative;
-      animation: fadeIn 0.3s ease;
-    }
-    .modal-content img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+      animation: zoomIn 0.3s ease;
     }
     .close-btn {
       position: absolute;
-      top: 10px; right: 15px;
-      font-size: 22px;
+      top: 20px; right: 30px;
+      font-size: 30px;
       cursor: pointer;
-      color: #444;
+      color: #fff;
       font-weight: bold;
     }
-    .close-btn:hover { color: #e91e63; }
+    .close-btn:hover { color: #ff5252; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     /* === Light Mode === */
@@ -230,21 +212,16 @@
     <section id="gift" class="section">
       <div class="card">
         <h2>🎁 Gift Gamepass</h2>
-        <p>Klik gambar katalog untuk melihat detail:</p>
-        <img src="c1398008-410d-4c51-97b7-4c234874823e.png" 
-             alt="Gift Gamepass Catalog" class="gift-catalog" onclick="openModal()">
+        <p>Klik tombol di bawah untuk melihat katalog produk:</p>
+        <button class="primary" onclick="openModal()">LIHAT PRODUK</button>
       </div>
     </section>
   </main>
 
-  <!-- Modal Popup -->
-  <div id="giftModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h3>🎁 Gift Gamepass Expedition Antarctica</h3>
-      <img src="antartika.png" alt="Gift Catalog">
-      <p>Daftar gamepass Expedition Antarctica tersedia. Silakan pilih item sesuai kebutuhan.</p>
-    </div>
+  <!-- Modal Fullscreen -->
+  <div id="giftModal" class="modal" onclick="closeModal()">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <img src="c1398008-410d-4c51-97b7-4c234874823e.png" alt="Gift Catalog">
   </div>
 
   <script>
@@ -288,14 +265,6 @@
     }
     function closeModal() {
       document.getElementById("giftModal").style.display = "none";
-    }
-
-    // Tutup modal jika klik luar area
-    window.onclick = function(event) {
-      const modal = document.getElementById("giftModal");
-      if (event.target === modal) {
-        closeModal();
-      }
     }
   </script>
 </body>
